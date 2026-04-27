@@ -88,6 +88,8 @@ async function main(): Promise<void> {
 
   process.on('SIGINT', shutdown);
   process.on('SIGTERM', shutdown);
+  // Also handle SIGHUP so the server shuts down cleanly when the terminal is closed
+  process.on('SIGHUP', shutdown);
 
   await server.connect(transport);
   logger.info('claude-context MCP server started successfully');
