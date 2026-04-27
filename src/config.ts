@@ -70,7 +70,8 @@ export function loadConfig(): AppConfig {
     },
     claude: {
       apiKey: requireEnv('ANTHROPIC_API_KEY'),
-      model: optionalEnv('CLAUDE_MODEL', 'claude-3-5-sonnet-20241022'),
+      // Using claude-3-7-sonnet for better reasoning on my local setup
+      model: optionalEnv('CLAUDE_MODEL', 'claude-3-7-sonnet-20250219'),
       maxTokens: parseInt(optionalEnv('CLAUDE_MAX_TOKENS', '8096'), 10),
     },
     embedding: {
@@ -79,7 +80,8 @@ export function loadConfig(): AppConfig {
       batchSize: parseInt(optionalEnv('EMBEDDING_BATCH_SIZE', '100'), 10),
     },
     collectionName: optionalEnv('MILVUS_COLLECTION_NAME', 'claude_context'),
-    topK: parseInt(optionalEnv('TOP_K', '5'), 10),
+    // Bumped default from 5 to 10 — more context generally gives better answers
+    topK: parseInt(optionalEnv('TOP_K', '10'), 10),
     debug: optionalEnv('DEBUG', 'false') === 'true',
   };
 }
