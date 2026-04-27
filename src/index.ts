@@ -59,11 +59,12 @@ async function main(): Promise<void> {
     } catch (error) {
       const message = error instanceof Error ? error.message : String(error);
       logger.error(`Tool execution failed: ${name}`, { error: message });
+      // Include the tool name and a timestamp in the error response for easier debugging
       return {
         content: [
           {
             type: 'text',
-            text: `Error executing tool ${name}: ${message}`,
+            text: `Error executing tool ${name} at ${new Date().toISOString()}: ${message}`,
           },
         ],
         isError: true,
