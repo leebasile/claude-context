@@ -79,11 +79,15 @@ async function main(): Promise<void> {
     logger.error('MCP Server error', { error: error.message });
   };
 
-  process.on('SIGINT', async () => {
+  // Handle both SIGINT (Ctrl+C) and SIGTERM (e.g. docker stop / process managers)
+  const shutdown = async () => {
     logger.info('Shutting down claude-context server...');
     await server.close();
     process.exit(0);
-  });
+  };
+
+  process.on('SIGINT', shutdown);
+  process.on('SIGTERM', shutdown);
 
   await server.connect(transport);
   logger.info('claude-context MCP server started successfully');
