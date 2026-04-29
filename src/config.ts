@@ -78,7 +78,8 @@ export function loadConfig(): AppConfig {
     embedding: {
       model: optionalEnv('EMBEDDING_MODEL', 'text-embedding-3-small'),
       dimension: parseInt(optionalEnv('EMBEDDING_DIMENSION', '1536'), 10),
-      batchSize: parseInt(optionalEnv('EMBEDDING_BATCH_SIZE', '100'), 10),
+      // Reduced batch size to 50 to avoid occasional rate limit errors on my free-tier account
+      batchSize: parseInt(optionalEnv('EMBEDDING_BATCH_SIZE', '50'), 10),
     },
     collectionName: optionalEnv('MILVUS_COLLECTION_NAME', 'claude_context'),
     // Bumped default from 5 to 10 — more context generally gives better answers
