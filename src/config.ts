@@ -84,7 +84,8 @@ export function loadConfig(): AppConfig {
     collectionName: optionalEnv('MILVUS_COLLECTION_NAME', 'claude_context'),
     // Bumped default from 5 to 10 — more context generally gives better answers
     topK: parseInt(optionalEnv('TOP_K', '10'), 10),
-    debug: optionalEnv('DEBUG', 'false') === 'true',
+    // Enable debug by default in development so I don't have to keep setting the env var
+    debug: optionalEnv('DEBUG', process.env['NODE_ENV'] === 'development' ? 'true' : 'false') === 'true',
   };
 }
 
