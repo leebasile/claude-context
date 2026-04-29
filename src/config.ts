@@ -72,7 +72,8 @@ export function loadConfig(): AppConfig {
       apiKey: requireEnv('ANTHROPIC_API_KEY'),
       // Using claude-3-7-sonnet for better reasoning on my local setup
       model: optionalEnv('CLAUDE_MODEL', 'claude-3-7-sonnet-20250219'),
-      maxTokens: parseInt(optionalEnv('CLAUDE_MAX_TOKENS', '8096'), 10),
+      // Increased from 8096 to 16000 to handle larger codebases without truncation
+      maxTokens: parseInt(optionalEnv('CLAUDE_MAX_TOKENS', '16000'), 10),
     },
     embedding: {
       model: optionalEnv('EMBEDDING_MODEL', 'text-embedding-3-small'),
